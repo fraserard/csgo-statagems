@@ -12,15 +12,9 @@ def create_app(test_config=None):
     from api.model import db
     db.init_app(app)
 
-    from . import route
-    app.register_blueprint(route.main_bp)
+    from .route import main_bp
+    app.register_blueprint(main_bp)
 
     return app
-
-
-
-
-  
-
 
 
