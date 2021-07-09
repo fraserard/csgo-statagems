@@ -1,36 +1,39 @@
-from enum import unique
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
+
 
 class Player(db.Model): # player profile
     __tablename__ = 'player'
  
-    steamId = db.Column(db.Integer, primary_key=True) # get from steam openid - should be steamId64 format, pk
+    id = db.Column(db.Integer, primary_key=True)
+    steam_id = db.Column(db.BigInteger, nullable=False) # get from steam openid - should be steamId64 format, pk
     username = db.Column(db.String(32), nullable=False) # current in game steam name (ex. faffyy, balbaCREATURE), get from steam
-    preferredUsername = db.Column(db.String(32), nullable=False) # most common in game name (ex. faffers, balba), manual
+    preferred_username = db.Column(db.String(32), nullable=False) # most common in game name (ex. faffers, balba), manual
     name = db.Column(db.String(32), nullable=False) # first name or otherwise
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    matches = db.relationship('MatchPlayer', back_populates='player') # a Player is part of many matches
+    matches = db.relationship('MatchPlayer', back_populates='player') # a Player is part of many Matches
 
     def __repr__(self):
-        return '<steamId: %r, preferredUsername: %r>' % self.steamId, self.preferredUsername
+        return f'{self.__class__.__name__}<steamId: {self.steam_id}>'
+        #return '<steamId: %r, username: %r, preferredUsername: %r, name: %r>' % self.steamId, self.username, self.preferredUsername, self.name
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     
 class Match(db.Model): # end of match stats
     __tablename__ = 'match'
 
-    matchId = db.Column(db.Integer, primary_key=True) # match id, pk
+    id = db.Column(db.Integer, primary_key=True) # match id, pk
     #gameType = db.Column(db.String(2), nullable=False) # either 'mm' (matchmaking) or '10' (10 man), leave out - just do 10 man stats
-    datePlayed = db.Column(db.DateTime, nullable=True) # date match played
-    team1Score = db.Column(db.Integer, nullable=False) # team 1 score ex. 16, 14, if match not played set to 0
-    team2Score = db.Column(db.Integer, nullable=False) # team 2 score ex. 8, 16, if match not played set to 0
-    team1StartingSide = db.Column(db.String(2), nullable=False) # team 1 starting side - either 'CT' or 'T'
-    mapFilename = db.Column(db.Column(db.String(32), db.ForeignKey('map.filename'), nullable=False)) # map filename
+    date_played = db.Column(db.DateTime, nullable=True) # date match played
+    team1_score = db.Column(db.Integer, nullable=False) # team 1 score ex. 16, 14, if match not played set to 0
+    team2_score = db.Column(db.Integer, nullable=False) # team 2 score ex. 8, 16, if match not played set to 0
+    team1_start_side = db.Column(db.String(2), nullable=False) # team 1 starting side - either 'CT' or 'T'
+    map_filename = db.Column(db.String(32), db.ForeignKey('map.filename'), nullable=False) # map filename
     
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
@@ -40,15 +43,15 @@ class Match(db.Model): # end of match stats
     #rounds - make round table, round_player table. store data from every round.
 
     def __repr__(self):
-        return '<matchId: %r, datePlayed: %r, score: %r-%r, map: %r>' % self.matchId, self.datePlayed, self.team1Score, self.team2Score, self.mapFilename
+        return '<matchId: %r, datePlayed: %r, score: %r-%r, map: %r>' % self.match_id, self.date_played, self.team1_score, self.team2_score, self.map_filename
 
 class MatchPlayer(db.Model): # end of game stats for each player
     __tablename__ = 'match_player'
 
-    playerId = db.Column(db.Integer, db.ForeignKey('player.steamId'), primary_key=True, autoincrement=False) # player id, pk
-    matchId = db.Column(db.Integer, db.ForeignKey('match.matchId'), primary_key=True, autoincrement=False) # match id, pk
-    isTeam1 = db.Column(db.Boolean, nullable=False) # true = team1, false = team2
-    isCaptain = db.Column(db.Boolean, server_default=db.true(), nullable=False) # is player team captain? if unknown = false
+    player_id = db.Column(db.Integer, db.ForeignKey('player.id'), primary_key=True, autoincrement=False) # player id, pk
+    match_id = db.Column(db.Integer, db.ForeignKey('match.id'), primary_key=True, autoincrement=False) # match id, pk
+    is_team1 = db.Column(db.Boolean, nullable=False) # true = team1, false = team2
+    is_captain = db.Column(db.Boolean, server_default=db.true(), nullable=False) # is player team captain? if unknown = false
     kills = db.Column(db.SmallInteger, nullable=False) # total kills
     assists = db.Column(db.SmallInteger, nullable=False) # total assists
     deaths = db.Column(db.SmallInteger, nullable=False) # total deaths
@@ -58,19 +61,21 @@ class MatchPlayer(db.Model): # end of game stats for each player
     player = db.relationship('Player', back_populates='matches') # a Player is part of many Matches
 
     def __repr__(self):
-        return '<playerId: %r, matchId: %r, isTeam1: %r, isCaptain: %r, kills: %r, deaths: %r>' % self.playerId, self.matchId, self.isTeam1, self.isCaptain, self.kills, self.deaths
+        return '<playerId: %r, matchId: %r, isTeam1: %r, isCaptain: %r, kills: %r>' % self.player_id, self.match_id, self.is_team1, self.is_captain, self.kills
 
 class Map(db.Model): # map info
     __tablename__ = 'map'
 
-    filename = db.Column(db.String(32), primary_key=True) # ex. de_dust2, de_cbble, pk
-    mapName = db.Column(db.String(32), unique=True) # ex. Dust II, Cobblestone
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(32), unique=True) # ex. de_dust2, de_cbble, pk
+    map_name = db.Column(db.String(32), unique=True) # ex. Dust II, Cobblestone
     # anything else? image column ?
 
     matches = db.relationship('Match', back_populates='map') # a Map is played in many Matches
 
     def __repr__(self):
-        return '<filename: %r, mapName: %r>' % self.filename, self.mapName
+        return '{self.__class__.__name__}<file: {self.filename}, name: {self.mapName}>'.format(self=self)
+        
 
 
 
