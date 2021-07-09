@@ -9,6 +9,8 @@ instance/*
 .env
 .flaskenv
 
+.vscode/
+
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
