@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_restful import Api
-from .route import initialize_routes
 
+from statagems.models.__init__ import db
+from statagems.schemas.__init__ import ma
+from statagems.routes.__init__ import initialize_routes
 
 def create_app(test_config=None):
     # create and configure the app
@@ -10,18 +12,16 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         SQLALCHEMY_DATABASE_URI='mysql://root:admin@localhost:3306/statagems',
         #SQLALCHEMY_DATABASE_URI='sqlite:///test.db',
-        SQLALCHEMY_TRACK_MODIFICATIONS='false'
+        SQLALCHEMY_TRACK_MODIFICATIONS='false',
     )
-
-    from .model import db
-    db.init_app(app)
     
-    from .schemas import ma
-    ma.__init__(app)
-    
-    api = Api(app)
-    initialize_routes(api)
+    initialize_extensions(app)
 
     return app
 
+def initialize_extensions(app):
+    db.init_app(app)
+    ma.__init__(app)
+    api = Api(app)
+    initialize_routes(api)
 
