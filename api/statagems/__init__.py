@@ -1,27 +1,28 @@
 from flask import Flask
-from flask_restful import Api
+from .extensions import db, ma, migrate, api, jwt
+from .routes import initialize_routes
 
-from statagems.models.__init__ import db
-from statagems.schemas.__init__ import ma
-from statagems.routes.__init__ import initialize_routes
-
-def create_app(test_config=None):
+def create_app():
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='mysql://root:admin@localhost:3306/statagems',
-        #SQLALCHEMY_DATABASE_URI='sqlite:///test.db',
-        SQLALCHEMY_TRACK_MODIFICATIONS='false',
-    )
+    app = Flask(__name__)
+    app.config.from_object("statagems.config")
     
     initialize_extensions(app)
+    initialize_routes(api)
 
     return app
 
 def initialize_extensions(app):
     db.init_app(app)
-    ma.__init__(app)
-    api = Api(app)
-    initialize_routes(api)
+    ma.init_app(app)
+    migrate.init_app(app, db)
+    api.init_app(app)
+    jwt.init_app(app)
 
+# @jwt.token_in_blocklist_loader # checks if refresh token revoked
+# def check_if_token_is_revoked(jwt_header, jwt_payload):
+#     jti = jwt_payload["jti"]
+#     return __name__.models.TokenBlocklist.is_jti_blacklisted(jti)
+
+if __name__ == 'statagems':
+    create_app()

@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/react,flask
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,flask
+# STEAM API KEY
+steam_api_key
 
 ### Flask ###
 instance/*
