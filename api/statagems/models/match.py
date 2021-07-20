@@ -1,4 +1,4 @@
-from . import db
+from ..extensions import db
 
 class Match(db.Model): # end of match stats
     __tablename__ = 'match'
@@ -9,7 +9,7 @@ class Match(db.Model): # end of match stats
     team1_score = db.Column(db.Integer, nullable=False) # team 1 score ex. 16, 14, if match not played set to 0
     team2_score = db.Column(db.Integer, nullable=False) # team 2 score ex. 8, 16, if match not played set to 0
     team1_start_side = db.Column(db.String(2), nullable=False) # team 1 starting side - either 'CT' or 'T'
-    map_filename = db.Column(db.String(32), db.ForeignKey('map.filename'), nullable=False) # map filename
+    map_id = db.Column(db.Integer, db.ForeignKey('map.id'), nullable=False) # map id
     
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())

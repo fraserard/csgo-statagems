@@ -1,4 +1,4 @@
-from . import db
+from ..extensions import db
 
 class MatchPlayer(db.Model): # end of game stats for each player
     __tablename__ = 'match_player'
