@@ -1,5 +1,5 @@
-from . import ma
-from statagems.models.player import Player
+from .. import ma
+from ..models.player import Player
 
 class PlayerSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

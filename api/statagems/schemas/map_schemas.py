@@ -1,5 +1,5 @@
-from . import ma
-from api.models.map import Map
+from ..extensions import ma
+from ..models import Map
 
 class MapSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

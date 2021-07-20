@@ -1,5 +1,5 @@
-from . import ma
-from api.models.match_player import MatchPlayer
+from ..extensions import ma
+from ..models import MatchPlayer
 
 class MatchPlayerSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

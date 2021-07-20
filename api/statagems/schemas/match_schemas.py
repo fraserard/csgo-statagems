@@ -1,5 +1,5 @@
-from . import ma
-from api.models.match import Match
+from ..extensions import ma
+from ..models.match import Match
 
 class MatchSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
