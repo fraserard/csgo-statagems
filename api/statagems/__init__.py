@@ -23,6 +23,3 @@ def initialize_extensions(app):
 # def check_if_token_is_revoked(jwt_header, jwt_payload):
 #     jti = jwt_payload["jti"]
 #     return __name__.models.TokenBlocklist.is_jti_blacklisted(jti)
-
-if __name__ == 'statagems':
-    create_app()
