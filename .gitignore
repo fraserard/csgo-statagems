@@ -7,7 +7,7 @@ instance/*
 .webassets-cache
 .env
 .flaskenv
-
+migrations/
 .vscode/
 
 ### Flask.Python Stack ###
