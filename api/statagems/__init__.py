@@ -1,10 +1,10 @@
 from flask import Flask
 from .extensions import db, ma, migrate, api, jwt
-from .routes import initialize_routes
+from .routes.__init__ import initialize_routes
 
 def create_app():
     # create and configure the app
-    app = Flask(__name__)
+    app = Flask('statagems')
     app.config.from_object("statagems.config")
     
     initialize_extensions(app)
@@ -19,10 +19,6 @@ def initialize_extensions(app):
     api.init_app(app)
     jwt.init_app(app)
 
-# @jwt.token_in_blocklist_loader # checks if refresh token revoked
-# def check_if_token_is_revoked(jwt_header, jwt_payload):
-#     jti = jwt_payload["jti"]
-#     return __name__.models.TokenBlocklist.is_jti_blacklisted(jti)
-
+# set in env
 if __name__ == 'statagems':
     create_app()
