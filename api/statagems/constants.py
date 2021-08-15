@@ -1,8 +1,8 @@
 import os
 
-STEAM_API_KEY = os.getenv("STEAM_API_KEY")
-
-WEBSITE_URL = 'http://localhost:3000'
+STEAM_API_KEY = os.getenv('STEAM_API_KEY')
+ADMIN_STEAM_ID = int(os.getenv('ADMIN_STEAM_ID'))
+WEBSITE_URL = os.getenv('WEBSITE_URL')
 
 STEAM_OPENID_SERVER = 'https://steamcommunity.com/openid/login'
 OPENID_URL_PARAMS = {
@@ -14,4 +14,3 @@ OPENID_URL_PARAMS = {
     'openid.realm': WEBSITE_URL
 }
 STEAM_CLAIMED_ID_URL = 'https://steamcommunity.com/openid/id/' # openid identity returned like "https://steamcommunity.com/openid/id/{STEAM_ID64}"
-ADMIN_STEAM_ID = '76561198062177171'
