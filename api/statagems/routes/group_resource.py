@@ -13,13 +13,11 @@ class GroupsApi(Resource): # /api/groups
         return NotImplemented
 
     def post(self): # add new group
-        res = make_response()
         try:
             data = request.get_json()
             player_jwt = get_jwt_identity()
-            create_group()
+            create_group(player_jwt['id'], data)
             db.session.commit()
-            res.status_code=201
         except Exception as e:
             logging.exception(e)
             return {'msg': 'error'}, 400
