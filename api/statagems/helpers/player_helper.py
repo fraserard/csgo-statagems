@@ -20,8 +20,9 @@ def add_player_steam(steam_data):
             new_player.name = (steam_data['realname'])[:32]
         
         db.session.add(new_player)
-     
-        return player_schema.dump(Player.query.filter_by(steam_id=new_player.steam_id).first())
+        db.session.flush()
+        
+        return player_schema.dump(new_player)
     except Exception as e: raise e
 
 def update_player_steam(player, steam_data):
