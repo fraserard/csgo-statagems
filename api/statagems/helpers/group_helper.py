@@ -1,3 +1,4 @@
+import logging
 from ..models import Group, GroupPlayer
 from ..extensions import db
 
@@ -19,12 +20,14 @@ def create_group(creator_id: int, group_data: dict):
         )
         db.session.add(new_group)
         db.session.flush()
+        logging.error(new_group)
         # auto create groupplayer on group create
         group_member = GroupPlayer(
             player_id = creator_id,
             group_id = new_group.id,
             group_clearance = 0,     
         )
+        logging.error(group_member)
         db.session.add(group_member)
         db.session.commit()
     except Exception as e: raise e
