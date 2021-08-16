@@ -3,15 +3,12 @@ import logging
 from flask_jwt_extended.view_decorators import jwt_required
 from flask_restful import Resource
 from flask_jwt_extended.utils import get_jwt_identity
-from flask import request, make_response
-from sqlalchemy.orm import load_only
+from flask import request
 from ..helpers.group_helper import create_group, update_group, delete_group
 from ..extensions import db
-from ..models.player import Player
 from ..models.group import Group
 from ..models.group_player import GroupPlayer
 from ..schemas.group_schemas import GroupSchema
-from api.statagems.models import group
 
 class GroupsApi(Resource): # /api/groups 
     @jwt_required() 
@@ -44,14 +41,14 @@ class GroupsApi(Resource): # /api/groups
         
         return 201
 
-class GroupApi(Resource): # /api/groups/<id>
+class GroupApi(Resource): # /api/groups/<gid>
     @jwt_required()
-    def get(self, id): # get group by groupid
-        group = Group.query.get_or_404(id)
+    def get(self, gid): # get group by groupid
+        group = Group.query.get_or_404(gid)
         return GroupSchema().dump(group), 200
 
     @jwt_required()
-    def put(self, id): # update group by groupid
+    def put(self, gid): # update group by groupid
         
         data = request.get_json(silent=True)
         if data is None: return 400
@@ -60,7 +57,7 @@ class GroupApi(Resource): # /api/groups/<id>
             player = get_jwt_identity()
             pid = player['id'] 
 
-            update_group(pid=pid, group_data=data, gid=id)
+            update_group(pid=pid, group_data=data, gid=gid)
 
             db.session.commit()
         except Exception as e:

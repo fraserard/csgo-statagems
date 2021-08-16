@@ -30,7 +30,7 @@ def initialize_routes(api):
 
     # groups
     api.add_resource(GroupsApi, '/api/groups')
-    api.add_resource(GroupApi, '/api/groups/<id>')
+    api.add_resource(GroupApi, '/api/groups/<gid>')
 
     # players - general user
     api.add_resource(PlayersApi, '/api/players')
