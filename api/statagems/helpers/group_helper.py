@@ -51,8 +51,7 @@ def update_group(pid: int, group_data: dict, gid: int):
 def delete_group(pid: int, gid: int):
     g = Group.query.get(gid)
     if g is None: raise Exception('Group does not exist')
-    gp = GroupPlayer.query.filter(GroupPlayer.player_id == pid and GroupPlayer.group_id == gid)
-    if gp.group_clearance not in [0,1]: raise Exception('Player does not have permissions to update the group')
+    if g.creator_id != pid: raise Exception('Only the group creator can delete the group.')
 
     db.session.delete(g)
 
