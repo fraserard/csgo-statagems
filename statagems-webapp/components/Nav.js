@@ -46,6 +46,7 @@ function Nav() {
                     <li><Link href='/profile'><a>My Profile</a></Link></li>
                     <li><Link href='/matches'><a>My Matches</a></Link></li>
                     <li><Link href='/friends'><a>My Friends</a></Link></li>
+                    <li><Link href='/groups'><a>My Groups</a></Link></li>
                     <li><Link href='/settings'><a>My Settings</a></Link></li>
                     <li><Link href='/admin'><a>Admin Zone</a></Link></li>
                     <li><button onClick={(e) => {refresh()}}>
