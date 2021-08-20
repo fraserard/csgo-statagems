@@ -3,7 +3,8 @@ import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import useUser from '../helpers/UseUser'
 import { useEffect } from "react";
-import {cache} from 'swr'
+import {cache} from 'swr';
+import Loader from '../components/Loader'
 
 export default function Profile() {
 
@@ -20,7 +21,7 @@ export default function Profile() {
       }, [user])
 
     
-    return <p>redirecting</p>
+    return <Loader/>
 }
 
 

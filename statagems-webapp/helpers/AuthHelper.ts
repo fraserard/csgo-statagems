@@ -12,19 +12,8 @@ export async function refresh(){
     mutate('/api/me')
 }
 
-export const getOpt = () =>  {
-    let csrf:string = cookieCutter.get('csrf_access_token')
-    
-    let opt: RequestInit = { method: 'GET',
-                headers: { 
-                    'X-CSRF-TOKEN': csrf,
-                }
-    }
-    return opt
 
-}
-
-export function getOptions(): RequestInit{
+export const getOptions = () => {
     const csrf: string = cookieCutter.get('csrf_access_token')
     const opt: RequestInit = { method: 'GET',
                 headers: { 
@@ -32,6 +21,18 @@ export function getOptions(): RequestInit{
                 }
     }
     return opt
+}
 
+export const postOptions = (data:any) => {
+    const csrf: string = cookieCutter.get('csrf_access_token')
+    const opt: RequestInit = { 
+                method: 'POST',
+                headers: { 
+                    'X-CSRF-TOKEN': csrf,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+    }
+    return opt
 }
 

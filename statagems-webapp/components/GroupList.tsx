@@ -1,6 +1,6 @@
 
 import Link from 'next/link'
-import {Group, useGroups} from '../helpers/UseGroup'
+import { useGroups } from '../helpers/UseGroup'
 
 const GroupList = () => {
     const { groups, isLoading, isError } = useGroups()
@@ -12,7 +12,7 @@ const GroupList = () => {
     }
     
     const groupList = groups!.map((g) => 
-        <li>
+        <li key={g.id}>
             <Link href={`/group/${encodeURIComponent(g.id)}`}>{g.group_name}</Link>
         </li>
     ) 
