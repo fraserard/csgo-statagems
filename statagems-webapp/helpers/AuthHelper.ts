@@ -2,7 +2,6 @@ import { mutate, cache } from 'swr';
 import { server } from '../config'
 import cookieCutter from 'cookie-cutter'
 
-
 export async function logout(){
     await fetch(`${server}/auth/logout`, getOptions()).catch(() => {})
     mutate('/api/me')
@@ -11,7 +10,6 @@ export async function logout(){
 export async function refresh(){
     mutate('/api/me')
 }
-
 
 export const getOptions = () => {
     const csrf: string = cookieCutter.get('csrf_access_token')

@@ -1,9 +1,9 @@
-import useUser from "../helpers/UseUser"
-import getAvatarUrl from '../helpers/SteamHelper'
-import { server } from "../config"
+import useUser from "../../helpers/UseUser"
+import getAvatarUrl from '../../helpers/SteamHelper'
+import { server } from "../../config"
 import Image from "next/dist/client/image"
 import Link from 'next/link'
-import styles from './modules/Avatar.module.sass'
+import styles from './Avatar.module.sass'
 
 function Avatar () {
     const { user} = useUser();

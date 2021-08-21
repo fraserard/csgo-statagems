@@ -3,8 +3,8 @@ import { Content } from '@jobber/components/Content'
 import { InputText } from "@jobber/components/InputText";
 import { Button } from "@jobber/components/Button";
 import { useFormState } from "@jobber/hooks";
-import { addGroup, iNewGroup } from "../helpers/UseGroup";
-import useUser from '../helpers/UseUser'
+import { addGroup, iNewGroup } from "../../helpers/UseGroup";
+import useUser from '../../helpers/UseUser'
 import { useState } from 'react'
 
 const NewGroup = () => {

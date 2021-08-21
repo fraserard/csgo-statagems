@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../../components/layout/Layout';
 import { server } from '../../config';
 import Loader from '../../components/Loader';
 

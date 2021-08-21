@@ -1,11 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { server } from '../config'
-import Avatar from './Avatar'
-import useUser from '../helpers/UseUser'
-import { logout, refresh } from '../helpers/AuthHelper'
+import useUser from '../../helpers/UseUser'
+import { logout, refresh } from '../../helpers/AuthHelper'
 import { useRouter } from 'next/router'
-import styles from "./modules/Nav.module.sass"
+import styles from "./Nav.module.sass"
 
 function Nav() {
     const { user } = useUser()
@@ -13,7 +10,7 @@ function Nav() {
 
     if(user == undefined || user.id == undefined){
         return(
-            <nav className={styles.dad}>
+            <nav className={styles.hug}>
                 <ul>
                     <li>Please sign in with Steam.</li>
                 </ul>
@@ -22,7 +19,7 @@ function Nav() {
     }
     if(user.is_admin = false){
         return(
-            <nav className={styles.dad}>
+            <nav className={styles.hug}>
                 <ul>
                     <li><Link href='/profile'><a>My Profile</a></Link></li>
                     <li><Link href='/matches'><a>My Matches</a></Link></li>
@@ -41,7 +38,7 @@ function Nav() {
     }
     if(user.is_admin = true){
         return(
-            <nav className={styles.dad}>
+            <nav className={styles.hug}>
                 <ul>
                     <li><Link href='/profile'><a>My Profile</a></Link></li>
                     <li><Link href='/matches'><a>My Matches</a></Link></li>

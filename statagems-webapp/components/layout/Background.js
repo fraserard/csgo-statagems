@@ -1,5 +1,6 @@
-import styles from './modules/Background.module.sass'
+import styles from './Background.module.sass'
 import Image from 'next/image'
+
 const Background = () => {
     return ( 
     <div className={styles.bgWrap}>

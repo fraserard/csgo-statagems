@@ -1,6 +1,6 @@
-import Layout from "../components/Layout";
-import GroupList from "../components/GroupList";
-import NewGroup from '../components/NewGroup'
+import Layout from "../components/layout/Layout";
+import GroupList from "../components/groups/GroupList";
+import NewGroup from '../components/groups/NewGroup'
 
 export default function Groups() {
     return(

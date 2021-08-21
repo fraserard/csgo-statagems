@@ -1,6 +1,6 @@
 
 import Link from 'next/link'
-import { useGroups } from '../helpers/UseGroup'
+import { useGroups } from '../../helpers/UseGroup'
 
 const GroupList = () => {
     const { groups, isLoading, isError } = useGroups()

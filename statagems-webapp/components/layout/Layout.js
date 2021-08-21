@@ -3,7 +3,7 @@ import Head from './MyHead'
 import TitleBar from './TitleBar'
 import Footer from './Footer'
 import Background from './Background'
-import styles from './modules/Layout.module.sass'
+import styles from './Layout.module.sass'
 
 const Layout = ({ children }) => {
     return(
@@ -12,9 +12,9 @@ const Layout = ({ children }) => {
             <Head/>
             <TitleBar/>
             <Nav/>
-            <div className={styles.content}>
+            <main className={styles.content}>
                     {children}
-            </div>
+            </main>
             <Footer/>
             
         </>
