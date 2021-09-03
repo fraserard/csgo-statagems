@@ -3,7 +3,7 @@ import { Content } from '@jobber/components/Content'
 import { InputText } from "@jobber/components/InputText";
 import { Button } from "@jobber/components/Button";
 import { useFormState } from "@jobber/hooks";
-import { addGroup, iNewGroup } from "../../helpers/UseGroup";
+import { addGroup, INewGroup } from "../../helpers/GroupHelper";
 import useUser from '../../helpers/UseUser'
 import { useState } from 'react'
 
@@ -14,7 +14,7 @@ const NewGroup = () => {
     const { user } = useUser()
 
     const submitGroup = () => {
-        const newGroup: iNewGroup = {
+        const newGroup: INewGroup = {
             creator_id: user.id,
             group_name: name,
             description: desc,
@@ -29,9 +29,7 @@ const NewGroup = () => {
             <Content>
                 <InputText placeholder='Group Name' name='groupName' 
                     value={name} 
-                    onChange={newValue =>{
-                        if (typeof newValue == "string") setName(newValue) }
-                    }
+                    onChange={(_name:string) => {setName(_name) }}
                     validations={{
                         required: {
                             value: true,
@@ -39,27 +37,24 @@ const NewGroup = () => {
                         },
                         minLength: {
                             value: 3,
-                            message: 'Group name is too short',
+                            message: 'Group name is too short (min 3 characters)',
                         },
                         maxLength: {
                             value: 32,
-                            message: 'Group name is too long',
+                            message: 'Group name is too long (max 32 characters)',
                         },
                     }} 
                 />
                 <InputText placeholder='Group Description' multiline name='groupDescription' 
                     value={desc} 
-                    onChange={newValue =>{
-                        if (typeof newValue == "string") setDesc(newValue) }
-                    }
+                    onChange={(_desc:string) => {setDesc(_desc) }}
                     validations={{
                         required: {
                             value: false,
-                            message: 'Group name is required',
                         },
                         maxLength: {
                             value: 255,
-                            message: 'Description is too long',
+                            message: 'Group description is too long (max 255 characters)',
                         },
                     }} 
                 />
