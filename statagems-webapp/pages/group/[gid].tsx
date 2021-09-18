@@ -1,6 +1,7 @@
 import Layout from '../../components/layout/Layout'
 import SingleGroup from '../../components/groups/SingleGroup'
 import { useRouter } from 'next/router'
+import AddToGroup from '../../components/groups/AddToGroup'
 
 export default function Group(){
     const router = useRouter()
@@ -8,7 +9,9 @@ export default function Group(){
 
     return (
         <Layout>
-            <SingleGroup gid={gid}></SingleGroup>
+            <SingleGroup gid={gid}/>
+            <AddToGroup gid={gid}/>
         </Layout>
+
     )
 }

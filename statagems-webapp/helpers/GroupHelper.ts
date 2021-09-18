@@ -1,6 +1,6 @@
 import { server } from "../config";
 import {getOptions, postOptions} from './AuthHelper'
-import useSWR, { SWRResponse } from "swr"
+import useSWR, { mutate, SWRResponse } from "swr"
 
 // TODO ADD USER ID KEY TO EACH SWR PARAMETER
 export function useGroups() {
@@ -56,7 +56,22 @@ export interface INewGroup{
 export const addGroup = async (group: INewGroup) => {
     const resp: Response = await fetch(`${server}/api/groups`, postOptions(group))
     if (!resp.ok) throw new Error('Not authorized.')
+
+    mutate('/api/groups')
 }
-export const addPlayerToGroup = async (pid: number) => {
-    
+
+export interface INewGroupPlayer{
+    requester_id: number
+    group_id: number
+    player_id: number
+}
+export const addPlayerToGroup = async (groupPlayer: INewGroupPlayer) => {
+    const resp: Response = await fetch(`${server}/api/groups/${groupPlayer.group_id}/${groupPlayer.player_id}`, postOptions())
+    if (!resp.ok) throw new Error('Not authorized.')
+
+    mutate(['/api/groups/', groupPlayer.group_id])
+}
+
+export interface SingleGroupProps{
+    gid: number
 }

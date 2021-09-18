@@ -1,5 +1,6 @@
-import { useGroup } from '../../helpers/GroupHelper'
+import { useGroup, SingleGroupProps } from '../../helpers/GroupHelper'
 import Link from 'next/link'
+import { mutate } from 'swr'
 
 const SingleGroup = ({ gid }: SingleGroupProps) => {
     const { group, isLoading, isError } = useGroup(gid)
@@ -15,6 +16,7 @@ const SingleGroup = ({ gid }: SingleGroupProps) => {
             <Link href={`/player/${encodeURIComponent(m)}`}><a>Member id: {m}</a></Link>
         </li>
     ) 
+
     return(  
         <>
             <h2>{group!.group_name}</h2>
@@ -24,7 +26,7 @@ const SingleGroup = ({ gid }: SingleGroupProps) => {
     )
 }
 export default SingleGroup
-
-interface SingleGroupProps{
-    gid: number
+function useEffect(arg0: () => void, arg1: any[]) {
+    throw new Error('Function not implemented.')
 }
+

@@ -21,7 +21,7 @@ export const getOptions = () => {
     return opt
 }
 
-export const postOptions = (data:any) => {
+export const postOptions = (data:any=null) => {
     const csrf: string = cookieCutter.get('csrf_access_token')
     const opt: RequestInit = { 
                 method: 'POST',
@@ -29,7 +29,7 @@ export const postOptions = (data:any) => {
                     'X-CSRF-TOKEN': csrf,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
+                body: data==null ? null : JSON.stringify(data)
     }
     return opt
 }

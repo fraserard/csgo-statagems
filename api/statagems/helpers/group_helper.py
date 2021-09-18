@@ -4,14 +4,14 @@ from ..models import Group, GroupPlayer, Player
 from ..extensions import db
 
 def get_groups_for_player(pid):
-    NotImplemented
+    groups = db.session.query(Group).join(Group._members).filter(GroupPlayer.player_id == pid)
+    return groups
 
 def create_group(creator_id: int, group_data: dict):
     """Creates new group under Player's id
     
     :param creator_id: id of Player who is creating group
     :param group_data: dict of group data"""
-
    
     new_group = Group(
         group_name = group_data['group_name'],
@@ -30,9 +30,8 @@ def create_group(creator_id: int, group_data: dict):
     
     db.session.add(group_member)
         
-    
 def update_group(pid: int, group_data: dict, gid: int):
-    """Updates group with data, if user has permissions
+    """Updates group if user has permissions
 
     :param pid: id of Player who is updating Group
     :param group_data: dict of Group data
@@ -51,12 +50,58 @@ def update_group(pid: int, group_data: dict, gid: int):
 def delete_group(pid: int, gid: int):
     g = Group.query.get(gid)
     if g is None: raise Exception('Group does not exist')
-    if g.creator_id != pid: raise Exception('Only the group creator can delete the group.')
+    if g.creator_id != pid: raise Exception('Player does not have permissions to delete the group.')
 
     db.session.delete(g)
 
-def add_group_member():
-    NotImplemented
+def add_group_member(uid: int, gid: int, pid: int):
+    """Adds a group member if user has permissions
 
-def remove_group_member():
-    NotImplemented
+    :param uid: id of Player making request
+    :param gid: id of Group to modify
+    :param pid: id of Player to add to Group"""
+
+    gp = GroupPlayer.query.filter(GroupPlayer.player_id == uid and GroupPlayer.group_id == gid).first() # player making request
+
+    if gp.group_clearance not in [0,1,2]: raise Exception('Player does not have permissions to add group members')
+
+    # CHECK IF PLAYER ALREADY IN GROUP
+
+    group_member = GroupPlayer(
+        player_id = pid,
+        group_id = gid,     
+    )
+    
+    db.session.add(group_member)
+
+def remove_group_member(uid: int, gid: int, pid: int):
+    """Removes a group member if user has permissions
+
+    :param uid: id of Player making request
+    :param gid: id of Group to modify
+    :param pid: id of Player to remove from Group"""
+
+    # CHECK IF PLAYER IN GROUP
+
+    gps = GroupPlayer.query.filter( (GroupPlayer.player_id == pid or GroupPlayer.player_id == pid) and GroupPlayer.group_id == gid).all()
+    logging.error(gps)
+    gp = GroupPlayer.query.get(uid, gid) # player making request
+    if gp.group_clearance not in [0,1]: raise Exception('Player does not have permissions to remove group members')
+    gp_rm = GroupPlayer.query.get(pid, gid) # group member to remove
+    if gp.group_clearance >= gp_rm: raise Exception('Player group authority lower than player to remove')
+
+    db.session.delete(gp_rm)
+
+def update_group_member(uid: int, gid: int, pid: int):
+    """Updates a group member's permissions if user has permissions
+
+    :param uid: id of Player making request
+    :param gid: id of Group to modify
+    :param pid: id of Player to update from Group"""
+
+    
+
+    
+
+    
+
