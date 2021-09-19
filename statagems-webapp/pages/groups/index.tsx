@@ -10,7 +10,7 @@ export default function Groups() {
     return(
         <Layout>
             <h1>Groups!</h1>
-            <Link href='/groups/add'><a>New Group!</a></Link>
+            <Link href='/groups/new'><a>New Group!</a></Link>
             <GroupList/>
         </Layout>
     )
