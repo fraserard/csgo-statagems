@@ -1,11 +1,46 @@
+
 import logging
 
 from ..models import Group, GroupPlayer, Player
 from ..extensions import db
 
 def get_groups_for_player(pid):
-    groups = db.session.query(Group).join(Group._members).filter(GroupPlayer.player_id == pid)
+
+    groups = ( 
+            db.session.query(Group)
+            .join(Group._members).filter(GroupPlayer.player_id == pid)
+    )
+    
     return groups
+
+def get_single_group(gid):
+
+    group = (
+        db.session.query(GroupPlayer.player_id, Group.group_name, Group.description, Group.creator_id, Group.created_at, Player.username, Player.avatar_hash)
+        .join(Group, GroupPlayer.group_id == Group.id)
+        .join(Player, GroupPlayer.player_id == Player.id)
+        .filter(GroupPlayer.group_id == gid)
+        .all()
+    )
+
+    members = []
+    group_dict = {
+        'group_id': gid,
+        'group_name': group[0].group_name,
+        'creator_id': group[0].creator_id,
+        'description': group[0].description,
+        'created_at': str(group[0].created_at),
+        'members': members
+    }
+    
+    for gp in group:
+        members.append({
+            'player_id': gp.player_id,
+            'username': gp.username,
+            'avatar_hash': gp.avatar_hash
+        })
+
+    return group_dict
 
 def create_group(creator_id: int, group_data: dict):
     """Creates new group under Player's id

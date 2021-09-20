@@ -42,7 +42,11 @@ export interface IGroup{
     creator_id: number
     group_name: string
     description?: string
-    members: number[]
+    members: [{ // INTERFACE of Player
+        player_id: number,
+        username: string,
+        avatar_hash: string
+    }]
     created_at: Date
 
     // _links: {key: string, uri: string}

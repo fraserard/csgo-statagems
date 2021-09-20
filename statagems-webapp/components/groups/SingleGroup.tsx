@@ -1,6 +1,5 @@
 import { useGroup, SingleGroupProps } from '../../helpers/GroupHelper'
 import Link from 'next/link'
-import { mutate } from 'swr'
 
 const SingleGroup = ({ gid }: SingleGroupProps) => {
     const { group, isLoading, isError } = useGroup(gid)
@@ -12,8 +11,8 @@ const SingleGroup = ({ gid }: SingleGroupProps) => {
         return (<p>error</p>)
     }
     const membersList = group!.members.map((m) => 
-        <li key={m}>
-            <Link href={`/player/${encodeURIComponent(m)}`}><a>Member id: {m}</a></Link>
+        <li key={m.player_id}>
+            <Link href={`/player/${encodeURIComponent(m.player_id)}`}><a>Member id: {m.player_id} {m.username}</a></Link>
         </li>
     ) 
 
@@ -21,12 +20,10 @@ const SingleGroup = ({ gid }: SingleGroupProps) => {
         <>
             <h2>{group!.group_name}</h2>
             <p>{!!group!.description ? group!.description : <i>No group description. Ask a group moderator to add one!</i>}</p>
+            <h3>Members:</h3>
             <ul>{membersList}</ul>
         </>
     )
 }
 export default SingleGroup
-function useEffect(arg0: () => void, arg1: any[]) {
-    throw new Error('Function not implemented.')
-}
 
