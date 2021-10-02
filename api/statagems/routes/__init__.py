@@ -1,6 +1,7 @@
 from .players_resource import PlayerApi, PlayersApi, PlayerSelf
 from .auth_resource import LoginApi, LoginInit, LogoutApi
 # from .admin_resource import AdminPlayers, AdminPlayer, AdminMatch, AdminMatches
+from .group_resource import GroupsApi, GroupApi, GroupPlayerApi
 from .test_resource import TestPopulatePlayers
 def initialize_routes(api):
     # TESTING
@@ -26,6 +27,13 @@ def initialize_routes(api):
     # api.add_resource(FriendApi, '/api/friends/<id>')
     # api.add_resource(FriendRequestsApi, '/api/friendreqs')
     # api.add_resource(FriendRequestApi, '/api/friendreqs/<id>')
+
+    # groups
+    api.add_resource(GroupsApi, '/api/groups')
+    api.add_resource(GroupApi, '/api/groups/<gid>')
+
+    # group player
+    api.add_resource(GroupPlayerApi, '/api/groups/<gid>/<pid>')
 
     # players - general user
     api.add_resource(PlayersApi, '/api/players')

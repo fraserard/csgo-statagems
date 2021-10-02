@@ -1,5 +1,4 @@
-
-import Layout from '../components/Layout'
+import Layout from "../components/layout/Layout";
 
 export default function Error() {
   return (

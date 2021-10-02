@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import styles from './MyHead.module.sass'
 
 const MyHead = () => {
     return (

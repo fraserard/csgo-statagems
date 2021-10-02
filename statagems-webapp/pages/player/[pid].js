@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../../components/layout/Layout';
 import { server } from '../../config';
 import Loader from '../../components/Loader';
 
@@ -14,7 +13,7 @@ export default function Player({player}){
 }
 
 export async function getStaticProps({params}){
-    const resp = await fetch(`${server}/api/players/${params.id}`).catch(() => {})
+    const resp = await fetch(`${server}/api/players/${params.pid}`).catch(() => {})
     if(resp.status == 404)
         return {notFound: true}
                     
@@ -33,7 +32,7 @@ export async function getStaticPaths(){
     const data = await resp.json()
     
     // only grab 100 last online players
-    const paths = data.map(player => ({ params: {id: player.id.toString()} } ))
+    const paths = data.map(player => ({ params: {pid: player.id.toString()} } ))
 
     return {
         paths: paths,
