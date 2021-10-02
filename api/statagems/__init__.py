@@ -3,8 +3,7 @@ from .extensions import db, ma, migrate, api, jwt
 from .routes.__init__ import initialize_routes
 
 def create_app():
-    # create and configure the app
-    app = Flask('statagems')
+    app = Flask(__name__)
     app.config.from_object("statagems.config")
     
     initialize_extensions(app)
@@ -18,7 +17,3 @@ def initialize_extensions(app):
     migrate.init_app(app, db)
     api.init_app(app)
     jwt.init_app(app)
-
-# set in env
-if __name__ == 'statagems':
-    create_app()

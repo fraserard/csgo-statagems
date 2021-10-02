@@ -1,3 +1,4 @@
+from api.statagems.routes.matches_resource import MatchesApi
 from .players_resource import PlayerApi, PlayersApi, PlayerSelf
 from .auth_resource import LoginApi, LoginInit, LogoutApi
 # from .admin_resource import AdminPlayers, AdminPlayer, AdminMatch, AdminMatches
@@ -11,6 +12,21 @@ def initialize_routes(api):
     api.add_resource(LoginInit, '/auth/login/init')
     api.add_resource(LogoutApi, '/auth/logout')
 
+    # players - general user
+    api.add_resource(PlayersApi, '/api/players')
+    api.add_resource(PlayerApi, '/api/players/<id>')
+    api.add_resource(PlayerSelf, '/api/me')
+
+    # groups
+    api.add_resource(GroupsApi, '/api/groups')
+    api.add_resource(GroupApi, '/api/groups/<gid>')
+
+    # group player
+    api.add_resource(GroupPlayerApi, '/api/groups/<gid>/<pid>')
+
+    # matches for group
+    api.add_resource(MatchesApi, '/api/matches')
+    
     # admin
     # api.add_resource(AdminPlayers, '/admin/players')
     # api.add_resource(AdminPlayer, '/admin/players/<id>')
@@ -27,10 +43,8 @@ def initialize_routes(api):
     # api.add_resource(FriendRequestsApi, '/api/friendreqs')
     # api.add_resource(FriendRequestApi, '/api/friendreqs/<id>')
 
-    # players - general user
-    api.add_resource(PlayersApi, '/api/players')
-    api.add_resource(PlayerApi, '/api/players/<id>')
-    api.add_resource(PlayerSelf, '/api/me')
+
+
 
 
     
