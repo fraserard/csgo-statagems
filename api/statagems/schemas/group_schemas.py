@@ -14,10 +14,20 @@ class GroupSchema(ma.SQLAlchemySchema):
     members = ma.auto_field()
     created_at = ma.auto_field()
 
-# class GroupPlayerSchema(Schema):
-#     group_id = f.Int()
-#     creator_id = f.Int()
-#     group_name = f.Str()
-#     description = f.Str()
-#     members = f.List(cls_or_instance=f.Nested(player_id = f.Int(), username = f.Str()))
-    
+class GroupPlayerSchema(Schema):
+    group_id = f.Int()
+    creator_id = f.Int()
+    group_name = f.Str()
+    description = f.Str()
+    members = f.List(f.Nested(PlayerSchema(only=['id', 'username'])))
+
+# GroupPlayerSchema = Schema.from_dict({
+#     'group_id': f.Int(),
+#     'creator_id': f.Int(),
+#     'group_name': f.Str(),
+#     'description': f.Str(),
+#     'members' : f.List({
+#         'player_id':f.Int(),
+#         'username': f.Str()
+#     })
+# })
