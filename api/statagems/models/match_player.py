@@ -3,8 +3,9 @@ from ..extensions import db
 class MatchPlayer(db.Model): # end of game stats for each player
     __tablename__ = 'match_player'
 
-    player_id = db.Column(db.Integer, db.ForeignKey('player.id'), primary_key=True, autoincrement=False) # player id, pk
     match_id = db.Column(db.Integer, db.ForeignKey('match.id'), primary_key=True, autoincrement=False) # match id, pk
+    player_id = db.Column(db.Integer, db.ForeignKey('player.id'), primary_key=True, autoincrement=False) # player id, pk
+    
     is_team1 = db.Column(db.Boolean, nullable=False) # true = team1, false = team2
     is_captain = db.Column(db.Boolean, server_default=db.true(), nullable=False) # is player team captain? if unknown = false
     kills = db.Column(db.SmallInteger, nullable=False) # total match kills

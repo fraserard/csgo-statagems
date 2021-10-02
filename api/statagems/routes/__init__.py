@@ -2,7 +2,9 @@ from api.statagems.routes.matches_resource import MatchesApi
 from .players_resource import PlayerApi, PlayersApi, PlayerSelf
 from .auth_resource import LoginApi, LoginInit, LogoutApi
 # from .admin_resource import AdminPlayers, AdminPlayer, AdminMatch, AdminMatches
+from .group_resource import GroupsApi, GroupApi, GroupPlayerApi
 from .test_resource import TestPopulatePlayers
+
 def initialize_routes(api):
     # TESTING
     api.add_resource(TestPopulatePlayers, '/test/populate_players')
