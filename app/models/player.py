@@ -21,20 +21,20 @@ class Player(db.Model): # player profile
     # # matches
     # matches = db.relationship('MatchPlayer', back_populates='player') # a Player is part of many Matches
     
-    def can_fetch_steam(self):
-        if self.last_fetched_steam < datetime.utcnow() - current_app.config['STEAM_API_COOLDOWN']:
-            return True
-        return False
+    # def can_fetch_steam(self):
+    #     if self.last_fetched_steam < datetime.utcnow() - current_app.config['STEAM_API_COOLDOWN']:
+    #         return True
+    #     return False
     
-    # @staticmethod        
-    # def get_by_steam_id(steam_id: int) -> 'Player':
-    #     return Player.query.\
-    #             add_columns(Player.id, Player.steam_id,
-    #                         Player.steam_username, Player.steam_real_name, 
-    #                         Player.steam_avatar_hash, Player.last_fetched_steam,
-    #                         Player.is_admin, Player.last_seen).\
-    #             filter_by(steam_id = steam_id).first()
-    #     return Player.query.filter_by(steam_id = steam_id).first()
+    @staticmethod        
+    def get_by_steam_id(steam_id: int) -> 'Player':
+        # return Player.query.\
+        #         add_columns(Player.id, Player.steam_id,
+        #                     Player.steam_username, Player.steam_real_name, 
+        #                     Player.steam_avatar_hash, Player.last_fetched_steam,
+        #                     Player.is_admin, Player.last_seen).\
+        #         filter_by(steam_id = steam_id).first()
+        return Player.query.filter_by(steam_id = steam_id).first()
 
     def __repr__(self):
         return f'{self.__class__.__name__}<id: {self.id}, steam_id: {self.steam_id}, steam_username:{self.steam_username}>'
