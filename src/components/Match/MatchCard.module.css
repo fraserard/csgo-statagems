@@ -1,0 +1,35 @@
+li {
+  border: 1px solid var(--color-border--section);
+  margin: 1% auto;
+  background-color: var(--color-lightBlue);
+  box-shadow: var(--shadow-high);
+}
+
+li:hover{
+  background-color: var(--color-orange);
+}
+
+.details{
+  margin-left: 1%;
+  margin-right: 1%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.players{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+.players p{
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.players div img {
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  border: 1px solid var(--color-border);
+}
+

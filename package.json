@@ -1,0 +1,34 @@
+{
+  "name": "statagems-react",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "@jobber/components": "^2.83.0",
+    "@jobber/design": "^0.25.0",
+    "@jobber/hooks": "^1.11.0",
+    "graphql": "^16.5.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
+    "urql": "^2.2.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.5.1",
+    "@graphql-codegen/typescript-document-nodes": "^2.2.13",
+    "@graphql-codegen/typescript-operations": "^2.4.2",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@urql/devtools": "^2.0.3",
+    "@vitejs/plugin-react": "^1.3.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9"
+  },
+  "proxy": "http://127.0.0.1:5000"
+}

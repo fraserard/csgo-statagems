@@ -1,0 +1,26 @@
+.container {
+  min-height: 100vh;
+  padding: 0 var(--space-base);
+  background-color: #7FAAF4;
+}
+
+.page {
+  display: flex;
+  max-width: 800px;
+  min-height: 100vh;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.page p,
+.page h1,
+.page h2,
+.page h3,
+.page h4 {
+  color: var(--color-blue);
+}
+
+.content {
+  padding: 0 var(--space-small);
+}
