@@ -1,0 +1,40 @@
+
+.container {
+  border-bottom: 0.3rem black solid;
+  margin-bottom: 10px;
+}
+
+.container .logo{
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 5rem;
+  text-transform: uppercase; 
+  /* color: var(--logo-blue); */
+  color: #0c0c0c;
+
+}
+
+.container .logo :hover{         
+    /* background: var(--logo-blue) -webkit-gradient(linear, 100% 0, 0 0, from(var(--purple)), color-stop(0.1, var(--logo-orange)), to(var(--purple))); */
+    background: #111 -webkit-gradient(linear, 100% 0, 0 0, from(var(--logo-orange)), color-stop(0.1, var(--logo-orange)), to(var(--purple)));
+    background-repeat: no-repeat;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation-name: shimmer;
+    animation-duration: 0.9s;
+    animation-iteration-count: infinite;
+    background-size: 20% 100%;
+}   
+        
+@keyframes shimmer {
+  0% {
+    background-position: top left -5rem;
+  }
+
+  100%{
+    background-position: top right -8rem ;
+  }
+
+  /* 100%{   
+    background-position: top left -8rem;
+  } */
+}

@@ -1,1 +1,0 @@
-# TODO: add functionality to view/manage friends by player

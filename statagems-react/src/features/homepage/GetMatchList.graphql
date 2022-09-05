@@ -1,0 +1,21 @@
+query GetMatchList {
+  matches {
+    datePlayed
+    id
+    score
+    map {
+      id
+      mapName
+    }
+    teams {
+      id
+      matchPlayers {
+        id
+        playerId
+        avatar {
+          smallAvatarUrl
+        }
+      }
+    }
+  }
+}

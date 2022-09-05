@@ -1,0 +1,37 @@
+query GetAllUsers {
+  users {
+    ...manageUsers
+  }
+}
+
+mutation UpdateUser($playerData: UpdatePlayerInput!) {
+  updatePlayer(playerData: $playerData) {
+    id
+    role
+    username
+  }
+}
+
+mutation WhitelistPlayer($steamId: String!) {
+  addPlayer(steamId: $steamId) {
+    steamId
+    avatar {
+      smallAvatarUrl
+    }
+    id
+    steamUsername
+    username
+  }
+}
+
+fragment manageUsers on Player {
+  avatar {
+    mediumAvatarUrl
+  }
+  gamesPlayed
+  username
+  steamUsername
+  role
+  id
+  steamId
+}
