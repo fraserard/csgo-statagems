@@ -1,0 +1,34 @@
+query GetMatch($matchId: Int!) {
+  match(matchId: $matchId) {
+    datePlayed
+    id
+    score
+    map {
+      id
+      mapName
+    }
+    teams {
+      ...matchTeam
+    }
+  }
+}
+
+fragment matchTeam on MatchTeam {
+  id
+  captainId
+  outcome
+  roundsWon
+  startSide
+  teamId
+  matchPlayers {
+    id
+    deaths
+    kills
+    playerId
+    assists
+    steamUsername
+    avatar {
+      smallAvatarUrl
+    }
+  }
+}

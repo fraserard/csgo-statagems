@@ -1,0 +1,39 @@
+query GetAllMaps {
+  maps {
+    ...manageMaps
+  }
+}
+
+mutation AddMap($mapData: AddMapInput!) {
+  addMap(mapData: $mapData) {
+    errors {
+      ... on ExpectedError {
+        message
+      }
+    }
+    map {
+      ...manageMaps
+    }
+  }
+}
+
+mutation UpdateMap($mapData: UpdateMapInput!) {
+  updateMap(mapData: $mapData) {
+    errors {
+      ... on ExpectedError {
+        message
+      }
+    }
+    map {
+      ...manageMaps
+    }
+  }
+}
+
+fragment manageMaps on Map {
+  activeDuty
+  mapName
+  id
+  filename
+  removed
+}

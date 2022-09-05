@@ -1,0 +1,10 @@
+query GetLoggedInUser {
+  currentUser {
+    id
+    role
+    steamUsername
+    username
+    avatarUrl
+    roles
+  }
+}

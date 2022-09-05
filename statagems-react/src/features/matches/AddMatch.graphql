@@ -1,0 +1,47 @@
+query AddMatchSelects {
+  playableMaps {
+    mapName
+    id
+  }
+  players {
+    username
+    steamUsername
+    id
+  }
+}
+
+mutation AddMatch($matchData: AddMatchInput!) {
+  addMatch(matchData: $matchData) {
+    match {
+      datePlayed
+      id
+      score
+      map {
+        mapName
+      }
+      teams {
+        captainId
+        outcome
+        roundsWon
+        startSide
+        teamId
+        matchPlayers {
+          deaths
+          kills
+          playerId
+          assists
+          steamUsername
+          avatar {
+            smallAvatarUrl
+          }
+        }
+      }
+    }
+    errors {
+      __typename
+      ... on ExpectedError {
+        message
+      }
+    }
+  }
+}
