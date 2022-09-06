@@ -1,20 +1,24 @@
 query GetMatchList {
   matches {
-    datePlayed
+    ...matchList
+  }
+}
+
+fragment matchList on Match {
+  datePlayed
+  id
+  score
+  map {
     id
-    score
-    map {
+    mapName
+  }
+  teams {
+    id
+    matchPlayers {
       id
-      mapName
-    }
-    teams {
-      id
-      matchPlayers {
-        id
-        playerId
-        avatar {
-          smallAvatarUrl
-        }
+      playerId
+      avatar {
+        mediumAvatarUrl
       }
     }
   }

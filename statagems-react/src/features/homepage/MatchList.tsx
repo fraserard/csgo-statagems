@@ -2,7 +2,7 @@ import { Skeleton, Title } from "@mantine/core";
 import { useQuery } from "urql";
 import Error from "~/components/Error";
 import { GetMatchListDocument, GetMatchListQuery } from "~/graphql";
-import NewMatchCard from "./NewMatchCard";
+import MatchCard from "./MatchCard";
 
 function MatchList() {
   const [result] = useQuery<GetMatchListQuery>({
@@ -14,23 +14,23 @@ function MatchList() {
     return (
       <>
         <Skeleton height={50} radius="md" width="20%" />
-        <Skeleton height={100} mt="sm" radius="md" />
-        <Skeleton height={100} mt="sm" radius="md" />
-        <Skeleton height={100} mt="sm" radius="md" />
-        <Skeleton height={100} mt="sm" radius="md" />
-        <Skeleton height={100} mt="sm" radius="md" />
-        <Skeleton height={100} mt="sm" radius="md" />
-
+        <Skeleton height={80} mt="sm" radius="md" />
+        <Skeleton height={80} mt="sm" radius="md" />
+        <Skeleton height={80} mt="sm" radius="md" />
+        <Skeleton height={80} mt="sm" radius="md" />
+        <Skeleton height={80} mt="sm" radius="md" />
+        <Skeleton height={80} mt="sm" radius="md" />
+        <Skeleton height={80} mt="sm" radius="md" />
       </>
     );
-  if (error) return <Error message={error.message} />;
+  if (error) return <Error message={"Matches failed to load."} />;
 
   return (
     <>
       <Title order={2}>Matches</Title>
 
       {data!.matches.map((match) => (
-        <NewMatchCard key={match.id} match={match} />
+        <MatchCard key={match.id} match={match} />
       ))}
     </>
   );
