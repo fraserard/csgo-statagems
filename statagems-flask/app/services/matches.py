@@ -108,6 +108,8 @@ def process_match_team(new_match_team: NewMatchTeam) -> MatchTeam:
             aggregates.update_times_captain(team_player, is_captain)
             aggregates.update_times_captain(team_player.player, is_captain)
 
+        team_player.player.last_seen = datetime.utcnow()
+
         # TODO Update player's steam data?
 
         new_match_player = MatchPlayer(
@@ -121,6 +123,6 @@ def process_match_team(new_match_team: NewMatchTeam) -> MatchTeam:
         match_team.players.append(new_match_player)
     return match_team
 
+
 def remove_match(match_id: int) -> bool:
     return False
-

@@ -1,0 +1,14 @@
+query GetPlayerList {
+  players{
+    ...playerList
+  }
+}
+
+fragment playerList on Player {
+  id
+  username
+  avatar {
+    mediumAvatarUrl
+  }
+  lastSeen
+}
