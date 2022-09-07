@@ -1,4 +1,4 @@
-import { Loader } from "@mantine/core";
+import { Container, Loader } from "@mantine/core";
 import { useQuery } from "urql";
 import Error from "~/components/Error";
 import AddMatchForm from "~/features/matches/AddMatchForm";
@@ -18,10 +18,12 @@ function AddMatchPage() {
       {error && <Error message={error.message} />}
 
       {!fetching && !error && (
-        <AddMatchForm
-          mapsList={data!.playableMaps.map((m) => ({ value: m.id, label: m.mapName }))}
-          playersList={data!.players.map((m) => ({ value: m.id, label: m.steamUsername }))}
-        />
+        <Container>
+          <AddMatchForm
+            mapsList={data!.playableMaps.map((m) => ({ value: m.id, label: m.mapName }))}
+            playersList={data!.players.map((m) => ({ value: m.id, label: m.steamUsername }))}
+          />
+        </Container>
       )}
     </Page>
   );
