@@ -36,8 +36,8 @@ export default function PlayerList() {
             {p.username}
           </Text>
 
-          <Text mt="-xs" size="sm">
-            last seen: &nbsp;
+          <Text mt="-xs" size="sm" lineClamp={1}>
+            Seen&nbsp;
             <TimeAgo isoDate={p.lastSeen} />
           </Text>
         </Stack>

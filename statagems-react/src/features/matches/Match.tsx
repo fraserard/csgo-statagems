@@ -1,4 +1,4 @@
-import { Loader, Stack, Title } from "@mantine/core";
+import { Container, Group, Loader, Title } from "@mantine/core";
 import { useQuery } from "urql";
 import TimeAgo from "~/components/TimeAgo";
 import { GetMatchDocument } from "~/graphql";
@@ -22,13 +22,15 @@ function Match({ matchId }: Props) {
 
   return (
     <>
-      <Stack mb="md" spacing="xs" align="center">
-        <Title order={2}>{match.map.mapName}</Title>
-        <Title order={2}>{match.score}</Title>
-        <Title order={3}>
-          <TimeAgo isoDate={match.datePlayed} />
-        </Title>
-      </Stack>
+      <Container size={"xs"}>
+        <Group mb="md" position="apart">
+          <Title order={2}>{match.map.mapName}</Title>
+          <Title order={2}>{match.score}</Title>
+          <Title order={3}>
+            <TimeAgo isoDate={match.datePlayed} />
+          </Title>
+        </Group>
+      </Container>
       <MatchTeam key={match.teams[0].teamId} team={match.teams[0]}></MatchTeam>
       <MatchTeam key={match.teams[1].teamId} team={match.teams[1]}></MatchTeam>
     </>

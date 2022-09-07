@@ -1,13 +1,16 @@
+import { Container } from "@mantine/core";
 import { useParams } from "react-router-dom";
-import Page from "~/layouts/Page";
 import Match from "~/features/matches/Match";
+import Page from "~/layouts/Page";
 
 function MatchPage() {
   const { matchId } = useParams();
 
   return (
     <Page title="Match Details">
-      <Match matchId={Number(matchId)} />
+      <Container>
+        <Match matchId={Number(matchId)} />
+      </Container>
     </Page>
   );
 }
