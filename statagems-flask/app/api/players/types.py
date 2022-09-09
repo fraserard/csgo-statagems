@@ -2,8 +2,6 @@ from datetime import datetime
 from typing import NewType
 
 import strawberry
-from typing_extensions import Self
-
 from app import models
 from app.api.common.interfaces import Node, PlayerAggregates, TeamAggregates
 from app.api.common.types.avatar_url import (
@@ -15,6 +13,7 @@ from app.api.common.types.avatar_url import (
 from app.api.matches.types import Match
 from app.api.permissions import RoleType
 from app.services import players
+from typing_extensions import Self
 
 SteamID = strawberry.scalar(
     NewType("SteamID", str),
@@ -80,7 +79,7 @@ class Player(Node, PlayerAggregates, TeamAggregates):
 
     @strawberry.field
     def avatar(self) -> AvatarUrl:
-        return AvatarUrl(strawberry.ID(self.steam_avatar_hash))
+        return AvatarUrl(steam_avatar_hash=self.steam_avatar_hash)
 
     @strawberry.field
     def matches(self) -> list["Match"] | None:

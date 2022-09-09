@@ -1,12 +1,11 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from sqlalchemy import desc
-from sqlalchemy.orm import joinedload
-
 from app import db
 from app.models import Match, MatchPlayer, MatchTeam, TeamSides
 from app.services import aggregates, teams
+from sqlalchemy import desc
+from sqlalchemy.orm import joinedload
 
 
 def get_match(match_id: int) -> Match:
@@ -19,6 +18,14 @@ def get_match(match_id: int) -> Match:
         .first()
     )
 
+def get_recent_match() -> Match:
+        return (
+        Match.query.options(
+            joinedload(Match.map), joinedload(Match.teams).joinedload(MatchTeam.players)
+        )
+        .order_by(desc(Match.date_played))
+        .first()
+    )
 
 def get_matches() -> list[Match]:
     """Gets all matches, ordered by most recent."""
@@ -64,13 +71,13 @@ def process_match(match_data: NewMatch) -> Match:
 
     match = Match(map_id=match_data.map_id, date_played=match_data.date_played)
 
-    match.teams.append(process_match_team(match_data.team1))
-    match.teams.append(process_match_team(match_data.team2))
+    match.teams.append(process_match_team(match_data.team1, date_played=match_data.date_played))
+    match.teams.append(process_match_team(match_data.team2, date_played=match_data.date_played))
 
     return match
 
 
-def process_match_team(new_match_team: NewMatchTeam) -> MatchTeam:
+def process_match_team(new_match_team: NewMatchTeam, date_played: datetime) -> MatchTeam:
     team = teams.get_by_team_hash(new_match_team.team_hash)
 
     if not team:
@@ -108,7 +115,7 @@ def process_match_team(new_match_team: NewMatchTeam) -> MatchTeam:
             aggregates.update_times_captain(team_player, is_captain)
             aggregates.update_times_captain(team_player.player, is_captain)
 
-        team_player.player.last_seen = datetime.utcnow()
+        team_player.player.last_seen = date_played
 
         # TODO Update player's steam data?
 

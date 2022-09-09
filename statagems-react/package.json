@@ -9,11 +9,11 @@
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.0",
-    "@mantine/core": "^5.2.0",
-    "@mantine/form": "^5.2.0",
-    "@mantine/hooks": "^5.2.0",
-    "@mantine/notifications": "^5.2.3",
+    "@emotion/react": "^11.10.4",
+    "@mantine/core": "^5.3.0",
+    "@mantine/form": "^5.3.0",
+    "@mantine/hooks": "^5.3.0",
+    "@mantine/notifications": "^5.3.0",
     "@tabler/icons": "^1.90.0",
     "@urql/exchange-auth": "^0.1.7",
     "@urql/exchange-graphcache": "^4.4.3",

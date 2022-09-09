@@ -1,11 +1,10 @@
 import strawberry
+from app import db, models
+from app.api.players.types import LoggedInUser, Player, SteamID
 from flask_jwt_extended import verify_jwt_in_request
 from flask_jwt_extended.exceptions import CSRFError, NoAuthorizationError
 from jwt import ExpiredSignatureError
 from strawberry.types import Info
-
-from app import db, models
-from app.api.players.types import LoggedInUser, Player, SteamID
 
 
 @strawberry.type
