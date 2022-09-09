@@ -4,6 +4,45 @@ query GetMatchList {
   }
 }
 
+query GetRecentMatch {
+  recentMatch {
+    ...recentMatch
+  }
+}
+
+fragment recentMatch on Match {
+  datePlayed
+  id
+  score
+  map {
+    id
+    mapName
+  }
+  teams {
+    ...recentMatchTeam
+  }
+}
+
+fragment recentMatchTeam on MatchTeam {
+  id
+  captainId
+  outcome
+  roundsWon
+  startSide
+  teamId
+  matchPlayers {
+    id
+    deaths
+    kills
+    playerId
+    assists
+    steamUsername
+    avatar {
+      smallAvatarUrl
+    }
+  }
+}
+
 fragment matchList on Match {
   datePlayed
   id
