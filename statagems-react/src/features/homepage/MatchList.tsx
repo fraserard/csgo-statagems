@@ -24,12 +24,14 @@ function MatchList() {
       </>
     );
   if (error) return <Error message={"Matches failed to load."} />;
+  if (!data?.matches) return <></>;
+  const allMatches = data?.matches.slice(1);
 
   return (
     <>
-      <Title order={2}>Matches</Title>
+      <Title order={3}>Matches</Title>
 
-      {data!.matches.map((match) => (
+      {allMatches!.map((match) => (
         <MatchCard key={match.id} match={match} />
       ))}
     </>

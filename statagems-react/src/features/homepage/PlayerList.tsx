@@ -47,8 +47,9 @@ export default function PlayerList() {
 
   return (
     <>
-      <Title order={2}>Players</Title>
+      <Title order={3}>Players</Title>
       <Container
+        mx={"xs"}
         mt="xs"
         pt={1}
         pb={1}
