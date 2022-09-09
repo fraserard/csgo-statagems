@@ -2,12 +2,11 @@ from datetime import datetime
 from enum import Enum
 
 import strawberry
-from typing_extensions import Self
-
 from app import models
 from app.api.common.interfaces import Node
 from app.api.common.types.avatar_url import AvatarUrl
 from app.api.maps.types import Map
+from typing_extensions import Self
 
 
 @strawberry.enum
@@ -106,15 +105,15 @@ class MatchPlayer(Node):
 
     @strawberry.field
     def avatar(self) -> AvatarUrl:
-        return AvatarUrl(strawberry.ID(self.steam_avatar_hash))
+        return AvatarUrl(steam_avatar_hash=self.steam_avatar_hash)
 
-    # player: 'Player'
+    # player: Player
     # is accessing user? flag to display if this record relates to player making request
 
     @classmethod
     def marshal(cls, model: "models.MatchPlayer") -> Self:
         return cls(
-            id=strawberry.ID(f'{model.match_id}.{model.player_id}'),
+            id=strawberry.ID(f"{model.match_id}.{model.player_id}"),
             player_id=model.player_id,
             kills=model.kills,
             deaths=model.deaths,

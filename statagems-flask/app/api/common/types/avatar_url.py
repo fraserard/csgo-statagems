@@ -3,7 +3,7 @@ import strawberry
 
 @strawberry.type
 class AvatarUrl:
-    steam_avatar_hash: strawberry.ID
+    steam_avatar_hash: str
 
     @strawberry.field
     def big_avatar_url(self) -> str:
